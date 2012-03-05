@@ -1,0 +1,48 @@
+# Based on arm-elf-newlib by: Andreas Messer <andi@surveycorner.de>
+# and Andrej Gelenberg <andrej.gelenberg@udo.edu>
+# Contributor:  titiwu
+
+pkgname=arm-none-eabi-newlib
+pkgver=1.20.0
+pkgrel=2
+pkgdesc="Newlib is a C library intended for use on embedded systems."
+arch=('any')
+groups=('devel')
+url="http://sourceware.org/newlib/"
+license=('BSD')
+depends=('arm-none-eabi-binutils' 'arm-none-eabi-gcc-base')
+replaces=('cross-arm-none-eabi-newlib')
+source=(ftp://sources.redhat.com/pub/newlib/newlib-${pkgver}.tar.gz)
+md5sums=('e5488f545c46287d360e68a801d470e8')
+options=(!libtool !emptydirs !strip)
+
+build() {
+ cd ${srcdir}
+ 
+ rm -rf build
+ mkdir  build
+ cd     build
+
+ export CFLAGS="-O2"
+
+ ../newlib-${pkgver}/configure \
+   --target=arm-none-eabi \
+   --prefix=/usr \
+   --enable-interwork \
+   --enable-multilib \
+   --with-gnu-as \
+   --with-gnu-ld \
+   --disable-nls || return 1
+
+ make || return 1
+}
+
+package() {
+ cd ${srcdir}/build || return 1
+
+ make -j1 DESTDIR=${pkgdir} install || return 1
+
+ rm -rf ${pkgdir}/usr/share/info
+
+ install -D -m644 "${srcdir}/newlib-${pkgver}/COPYING.NEWLIB" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}

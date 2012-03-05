@@ -1,0 +1,63 @@
+In file included from /usr/arm-eabi/include/dirent.h:6:0,
+                 from adaint.h:39,
+                 from adadecode.c:45:
+/usr/arm-eabi/include/sys/dirent.h:10:2: error: #error "<dirent.h> not supported"
+In file included from adadecode.c:45:0:
+adaint.h:140:1: error: unknown type name 'DIR'
+adaint.h:141:53: error: unknown type name 'DIR'
+adaint.h:142:53: error: unknown type name 'DIR'
+make[4]: *** [adadecode.o] Fehler 1
+make[4]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/cross-arm-eabi-gcc/src/gcc-4.6.2/build/gcc/ada/rts'
+make[3]: *** [gnatlib] Fehler 2
+make[3]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/cross-arm-eabi-gcc/src/gcc-4.6.2/build/gcc/ada'
+make[2]: *** [gnatlib-plain] Fehler 2
+make[2]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/cross-arm-eabi-gcc/src/gcc-4.6.2/build/arm-eabi/libada'
+make[1]: *** [all-target-libada] Fehler 2
+make[1]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/cross-arm-eabi-gcc/src/gcc-4.6.2/build'
+make: *** [all] Fehler 2
+
+
+NACH PATCH
+g-socket.ads:437:46: "SIZEOF_tv_sec" not declared in "OS_Constants"
+g-socket.ads:439:53: expected type "Standard.Duration"
+g-socket.ads:439:53: found type universal integer
+g-socket.ads:1160:58: "SIZEOF_fd_set" not declared in "OS_Constants"
+make[4]: *** [g-soccon.o] Fehler 1
+make[4]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/cross-arm-eabi-gcc/src/gcc-4.6.1/build/gcc/ada/rts'
+make[3]: *** [gnatlib] Fehler 2
+make[3]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/cross-arm-eabi-gcc/src/gcc-4.6.1/build/gcc/ada'
+make[2]: *** [gnatlib-plain] Fehler 2
+make[2]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/cross-arm-eabi-gcc/src/gcc-4.6.1/build/arm-eabi/libada'
+make[1]: *** [all-target-libada] Fehler 2
+make[1]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/cross-arm-eabi-gcc/src/gcc-4.6.1/build'
+make: *** [all] Fehler 2
+
+
+/home/mb/media/tmp/NXT/toolchain-archlinux/arm-eabi-gcc/src/gcc-4.6.1/build/./gcc/xgcc -B/home/mb/media/tmp/NXT/toolchain-archlinux/arm-eabi-gcc/src/gcc-4.6.1/build/./gcc/ -B/usr/arm-eabi/bin/ -B/usr/arm-eabi/lib/ -isystem /usr/arm-eabi/include -isystem /usr/arm-eabi/sys-include    -c -g -O2   -W -Wall -gnatpg   g-soccon.ads -o g-soccon.o
+g-socket.ads:437:46: "SIZEOF_tv_sec" not declared in "OS_Constants"
+g-socket.ads:439:53: expected type "Standard.Duration"
+g-socket.ads:439:53: found type universal integer
+g-socket.ads:1160:58: "SIZEOF_fd_set" not declared in "OS_Constants"
+make[4]: *** [g-soccon.o] Fehler 1
+make[4]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/arm-eabi-gcc/src/gcc-4.6.1/build/gcc/ada/rts'
+make[3]: *** [gnatlib] Fehler 2
+make[3]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/arm-eabi-gcc/src/gcc-4.6.1/build/gcc/ada'
+make[2]: *** [gnatlib-plain] Fehler 2
+make[2]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/arm-eabi-gcc/src/gcc-4.6.1/build/arm-eabi/libada'
+make[1]: *** [all-target-libada] Fehler 2
+make[1]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/arm-eabi-gcc/src/gcc-4.6.1/build'
+make: *** [all] Fehler 2
+
+mit arm-none-eabi
+/home/mb/media/tmp/NXT/toolchain-archlinux/arm-none-eabi-gcc/src/gcc-4.6.1/build/./gcc/xgcc -B/home/mb/media/tmp/NXT/toolchain-archlinux/arm-none-eabi-gcc/src/gcc-4.6.1/build/./gcc/ -B/usr/arm-none-eabi/bin/ -B/usr/arm-none-eabi/lib/ -isystem /usr/arm-none-eabi/include -isystem /usr/arm-none-eabi/sys-include    -c -DHAVE_CONFIG_H -g -O2 -pipe  -I. -I../../../libiberty/../include  -W -Wall -Wwrite-strings -Wc++-compat -Wstrict-prototypes -pedantic  ../../../libiberty/strsignal.c -o strsignal.o
+../../../libiberty/strsignal.c:554:1: error: conflicting types for 'psignal'
+/usr/arm-none-eabi/include/signal.h:27:6: note: previous declaration of 'psignal' was here
+make[2]: *** [strsignal.o] Fehler 1
+make[2]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/arm-none-eabi-gcc/src/gcc-4.6.1/build/arm-none-eabi/libiberty'
+make[1]: *** [all-target-libiberty] Fehler 2
+make[1]: Leaving directory `/home/mb/media/tmp/NXT/toolchain-archlinux/arm-none-eabi-gcc/src/gcc-4.6.1/build'
+make: *** [all] Fehler 2
+
+
+
+

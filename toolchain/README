@@ -1,0 +1,8 @@
+NXT-Ada-Toolchain
+
+The packages need to be created/installed in the following order:
+
+arm-none-eabi-binutils
+arm-none-eabi-gcc-base
+arm-none-eabi-newlib
+arm-none-eabi-gcc

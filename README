@@ -1,0 +1,68 @@
+
+                  --== The NXT Ada Robot Project ==--
+
+-------------------------------------------------------------------------------
+Legal
+-------------------------------------------------------------------------------
+
+Copyright © 2011-2012, Matthias Busl, All Rights Reserved.
+
+License is GPL v2 until further notice and is subject to change during
+development.
+
+-------------------------------------------------------------------------------
+Introduction
+-------------------------------------------------------------------------------
+
+The project has three goals:
+
+1. Provide build files for a (cross-) toolchain in order to compile Ada 
+   for the NXT Lego-Brick and allow to upload and run programs based on the 
+   Ravenscar-profile from a Linux system.
+
+2. Create a general framework for motion controlling and sequencing tasks
+   written in Ada and using PNML (or UML Stateflow).
+
+3. Based on this framework the creation of a Lego-Cleaning Robot.
+
+-------------------------------------------------------------------------------
+Progress
+-------------------------------------------------------------------------------
+
+1. Toolchain and Tools
+Based on the work of Luke A. Guest & David Rees (1) and Arch-Linux packages
+for the arm-elf target (2), I've created PKGBUILD-files and a patch for a 
+toolchain supporting Ada for a arm-none-eabi target
+
+Done for Arch-Linux, they might be helpful creating your own toolchain.
+
+binutils 2.22
+newlib   1.20
+gcc-core 4.6.1 (stage 1 or base compiler)
+gcc      4.6.1 (patched)
+
+Also a package PKGBUILD for the Ravenscar-Runtime provided by AdaCore (3)
+for Linux will follow.
+
+Toghether with the libnxt (4) project the toolbox for sucessfully creating
+and running Ada programms on the NXT should be complete.
+
+To be proven...
+
+
+2. Ada-Control Framework
+A lot of plans so far...
+
+
+3. The Lego-Cleaning-Bot
+Inspired by iRobots Roombas...
+
+-------------------------------------------------------------------------------
+References
+-------------------------------------------------------------------------------
+
+1) https://github.com/Lucretia/tamp
+2) e.g. http://aur.archlinux.org/packages.php?ID=56522
+3) http://www.adacore.com/home/academia/mindstorms/
+4) http://code.google.com/p/libnxt/
+
