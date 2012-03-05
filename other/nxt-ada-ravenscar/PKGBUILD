@@ -1,0 +1,66 @@
+# Maintainer: Titiwu
+pkgname=nxt-ada-ravenscar
+pkgver=2011
+pkgrel=2 
+pkgdesc="Ada Ravenscar Runtime System for Lego Mindstroms NXT."
+url="http://libre.adacore.com/libre/tools/mindstorms/"
+arch=('x86_64' 'i686')
+license=('GPLv2')
+depends=('arm-none-eabi-gcc=4.6.1')
+optdepends=()
+makedepends=('arm-none-eabi-gcc')
+conflicts=()
+replaces=()
+backup=()
+source=("mindstorms-nxt-${pkgver}-src.tgz::http://libre2.adacore.com/ac_download/?ac_download&file=MD5%3Aece8d58cb7175216277574cfd5085602"
+        "mindstorms-drivers-update-20110801-gpl-${pkgver}.zip::http://libre2.adacore.com/ac_download/?ac_download&file=MD5%3Aa0e3d2227e12336a8f9f8739ec1e1f72"
+        "gnat-gpl-${pkgver}-src.tgz::http://libre2.adacore.com/ac_download/?ac_download&file=MD5%3Ab895640aac5c2964e7ed65f8b3cc5c35"
+        "zfp-support-${pkgver}-src.tgz::http://libre2.adacore.com/ac_download/?ac_download&file=MD5%3Aab851f1cef3e9a92809333b6f289c477")
+md5sums=('10b7ba2013cbf84a14483a9c89b6e9cc'
+         '9d76ecb0e038208946318eed9490a73b'
+         'ae63ea08d7486c14898eaf7bb84f0bd3'
+         'ca19f55bba307fec0929e99736f092be')
+
+build() {
+  cd "${srcdir}/mindstorms-nxt-${pkgver}-src"
+
+  # Updating drivers
+  cp ../mindstorms-drivers-update-20110801-gpl-${pkgver}/* drivers/
+  cd ravenscar
+
+  # change compiler target settings
+  sed 's/arm-eabi/arm-none-eabi/g' build-rts.sh >build-rts.sh.new
+  sed 's/arm-eabi/arm-none-eabi/g' Makefile.inc >Makefile.inc.new
+  mv build-rts.sh build-rts.sh.bak
+  mv build-rts.sh.new build-rts.sh
+  mv Makefile.inc Makefile.inc.bak
+  mv Makefile.inc.new Makefile.inc
+
+  sh build-rts.sh ../../gnat-gpl-${pkgver}-src/src/ada ../../zfp-support-${pkgver}-src/zfp-src
+}
+
+package() {
+  cd "${srcdir}/mindstorms-nxt-${pkgver}-src"
+
+  install -dm755 "${pkgdir}/usr/share/examples/$pkgname/"
+  install -dm755 "${pkgdir}/usr/lib/gcc/arm-none-eabi/4.6.1/"
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+  install -Dm644 README "${pkgdir}/usr/share/doc/$pkgname/README"
+
+  mv demos "${pkgdir}/usr/share/examples/$pkgname/"
+  mv lowlevel_tests "${pkgdir}/usr/share/examples/$pkgname/"
+
+  rm -r samba
+  rm -r versatilepb
+  rm COPYING
+  rm README
+  rm CHANGE_172849
+  mv rts-raven/adalib adalib
+  mv rts-raven/adainclude adainclude
+  rm -r rts-raven
+  cd .. 
+  mv mindstorms-nxt-${pkgver}-src "${pkgdir}/usr/lib/gcc/arm-none-eabi/4.6.1/rtsravenscar-sfp"
+
+}
+
+# vim:set ts=2 sw=2 et:
