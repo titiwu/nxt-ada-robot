@@ -42,7 +42,9 @@ gcc-core 4.6.1 (stage 1 or base compiler)
 gcc      4.6.1 (patched)
 
 Also a package PKGBUILD for the Ravenscar-Runtime provided by AdaCore (3)
-for Linux will follow.
+for Linux is in the "other" folder.
+The Package downloads the required sources from AdaCore and compiles the
+Ravenscar Runtime System using the arm-none-eabi-toolchain.
 
 Toghether with the libnxt (4) project the toolbox for sucessfully creating
 and running Ada programms on the NXT should be complete.
@@ -63,6 +65,6 @@ References
 
 1) https://github.com/Lucretia/tamp
 2) e.g. http://aur.archlinux.org/packages.php?ID=56522
-3) http://www.adacore.com/home/academia/mindstorms/
+3) http://libre.adacore.com/libre/tools/mindstorms/
 4) http://code.google.com/p/libnxt/
 
