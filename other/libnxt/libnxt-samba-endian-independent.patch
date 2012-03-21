@@ -1,0 +1,23 @@
+Index: libnxt-0.3/samba.c
+===================================================================
+--- libnxt-0.3.orig/samba.c	2007-04-22 05:24:17.000000000 +0200
++++ libnxt-0.3/samba.c	2010-09-12 23:56:00.692274760 +0200
+@@ -87,16 +87,8 @@ nxt_read_common(nxt_t *nxt, char cmd, in
+   NXT_ERR(nxt_send_str(nxt, buf));
+   NXT_ERR(nxt_recv_buf(nxt, buf, len));
+ 
+-  w = *((nxt_word_t*)buf);
+-
+-#ifdef _NXT_BIG_ENDIAN
+-  /* The value returned is in little-endian byte ordering, so swap
+-     bytes on a big-endian architecture. */
+-  w = (((w & 0x000000FF) << 24) +
+-       ((w & 0x0000FF00) << 8)  +
+-       ((w & 0x00FF0000) >> 8)  +
+-       ((w & 0xFF000000) >> 24));
+-#endif /* _NXT_BIG_ENDIAN */
++  /* The value returned is in little-endian byte ordering */
++  w = (buf[3] << 24) | (buf[2] << 16) | (buf[1] << 8) | (buf[0] << 0);
+ 
+   *word = w;
+   return NXT_OK;

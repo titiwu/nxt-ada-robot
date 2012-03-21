@@ -1,0 +1,51 @@
+--- libnxt-0.3.orig/SConstruct	2007-04-22 06:41:39.000000000 +0200
++++ libnxt-0.3/SConstruct	2012-03-10 15:56:14.000000000 +0100
+@@ -1,27 +1,35 @@
+ from glob import glob
++from os import environ
++
++import SCons.Util
+ 
+ auto_libs = ''
+ 
+-# Detect the system's endianness
+-from sys import byteorder
+-if byteorder == 'big':
+-	endian = '_NXT_BIG_ENDIAN'
+-else:
+-	endian = '_NXT_LITTLE_ENDIAN'
++BuildEnv = Environment()
++
++soname = environ['_soname']
++shname = environ['_shname']
++
++CCFLAGS = \
++    environ.get('CFLAGS', '').split() + ['-Wall', '-std=gnu99']
++SHLINKFLAGS = '-Wl,-soname,' + soname
++BuildEnv = Environment(CCFLAGS=CCFLAGS)
++BuildEnv['SHLINKFLAGS'] += SCons.Util.CLVar(SHLINKFLAGS)
+ 
+-BuildEnv = Environment(CCFLAGS=['-Wall', '-std=gnu99',
+-				'-g', '-ggdb', '-D' + endian])
+ if auto_libs:
+ 	BuildEnv.ParseConfig('pkg-config --cflags --libs ' + auto_libs)
+ 
+ BuildEnv.Command('flash_routine.h',
+ 		 'flash_routine.h.base',
+-		 './make_flash_header.py')
++		 'python2 make_flash_header.py')
++
++library_files = [x for x in glob('*.c')
++                 if not x.startswith('main_')]
++
++Default(BuildEnv.Library('nxt', library_files, LIBS='usb'))
+ 
+-Default(BuildEnv.Library('nxt',
+-			 [x for x in glob('*.c')
+-			  if not x.startswith('main_')],
+-			 LIBS='usb'))
++Default(BuildEnv.SharedLibrary(shname, library_files, LIBS='usb',
++                               SHLIBSUFFIX=''))
+ 
+ Default(BuildEnv.Program('fwflash', 'main_fwflash.c',
+ 			 LIBS=['usb', 'nxt'], LIBPATH='.'))

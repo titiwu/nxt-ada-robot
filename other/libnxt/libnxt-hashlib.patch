@@ -1,0 +1,22 @@
+Index: libnxt-0.3/make_flash_header.py
+===================================================================
+--- libnxt-0.3.orig/make_flash_header.py	2007-04-22 06:41:39.000000000 +0200
++++ libnxt-0.3/make_flash_header.py	2010-09-04 16:11:24.153078564 +0200
+@@ -12,7 +12,7 @@ import sys
+ import os
+ import os.path
+ import urllib2
+-import sha
++import hashlib
+ 
+ FLASH_DIR = 'flash_write'
+ FLASH_BIN = 'flash.bin'
+@@ -57,7 +57,7 @@ from the project website and use that.
+     f.close()
+ 
+     # Verify the SHA-1 checksum
+-    checksum = sha.new(data).hexdigest()
++    checksum = hashlib.sha1(data).hexdigest()
+     if checksum != DOWNLOAD_FLASH_CHECKSUM:
+         print "Oops, the flash binary I downloaded has the wrong checksum!"
+         print "Aborting :("

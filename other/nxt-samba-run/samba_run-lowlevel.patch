@@ -1,0 +1,25 @@
+--- lowlevel.c.orig	2010-10-07 09:58:24.000000000 +0200
++++ lowlevel.c	2012-03-14 23:05:49.000000000 +0100
+@@ -118,6 +118,7 @@
+ {
+   char buf[4];
+   int ret;
++  char bound_driver_name[20];
+   int len;
+ 
+ #ifndef _WIN32
+@@ -137,6 +138,14 @@
+     {
+       nxt->hdl = usb_open(nxt->dev);
+ 
++      //detach possible kernel driver bound to interface
++      if (usb_get_driver_np(nxt->hdl,1,bound_driver_name,sizeof(bound_driver_name))==0)
++      {
++        if (usb_detach_kernel_driver_np(nxt->hdl, 1)<0)
++	  fprintf(stderr,"Failed to detach the driver %s (or cdc-acm) bound to the USB interface",bound_driver_name);
++	  //Let usb_set_configuration() below return an error and handle it
++      }
++
+       ret = usb_set_configuration(nxt->hdl, 1);
+ 
+       if (ret < 0)

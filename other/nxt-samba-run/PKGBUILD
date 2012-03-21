@@ -1,0 +1,39 @@
+# Maintainer: Titiwu
+# Patch Roman Shaposhnik (lowlevel-patch)
+pkgname=nxt-samba-run
+pkgver=2011
+pkgrel=2 
+pkgdesc="Uploader for GNAT Mindstorms NXT based on libnxt."
+url="http://libre.adacore.com/libre/tools/mindstorms/"
+arch=('x86_64' 'i686')
+license=('GPLv2')
+depends=('libusb-compat>=0.1' 'libusb-compat<0.2')
+optdepends=()
+makedepends=()
+conflicts=()
+replaces=()
+backup=()
+source=("mindstorms-nxt-${pkgver}-src.tgz::http://libre2.adacore.com/ac_download/?ac_download&file=MD5%3Aece8d58cb7175216277574cfd5085602"
+         samba_run-lowlevel.patch)
+
+md5sums=('10b7ba2013cbf84a14483a9c89b6e9cc'
+         '120967450277809246d0ae7ac7836e53')
+
+build() {
+  cd "${srcdir}/mindstorms-nxt-${pkgver}-src/samba"
+  
+  patch -p0 -i ${srcdir}/samba_run-lowlevel.patch
+  
+  # Updating drivers
+  make || return 1
+}
+
+package() {
+  cd "${srcdir}/mindstorms-nxt-${pkgver}-src/samba"
+  
+  install -Dm755 samba_run "$pkgdir/usr/bin/samba_run"
+  install -Dm644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
+
+}
+
+# vim:set ts=2 sw=2 et:

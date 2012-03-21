@@ -2,16 +2,17 @@
 # and Andrej Gelenberg <andrej.gelenberg@udo.edu>
 # Contributor:  titiwu
 
-pkgname=arm-none-eabi-newlib
+_target="arm-none-eabi"
+pkgname=${_target}-newlib
 pkgver=1.20.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Newlib is a C library intended for use on embedded systems."
 arch=('any')
 groups=('devel')
 url="http://sourceware.org/newlib/"
 license=('BSD')
-depends=('arm-none-eabi-binutils' 'arm-none-eabi-gcc-base')
-replaces=('cross-arm-none-eabi-newlib')
+depends=("${_target}-binutils" "${_target}-gcc-base")
+replaces=("cross-${_target}-newlib")
 source=(ftp://sources.redhat.com/pub/newlib/newlib-${pkgver}.tar.gz)
 md5sums=('e5488f545c46287d360e68a801d470e8')
 options=(!libtool !emptydirs !strip)
@@ -26,7 +27,7 @@ build() {
  export CFLAGS="-O2"
 
  ../newlib-${pkgver}/configure \
-   --target=arm-none-eabi \
+   --target=${_target} \
    --prefix=/usr \
    --enable-interwork \
    --enable-multilib \

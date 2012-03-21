@@ -18,7 +18,7 @@ The project has three goals:
 
 1. Provide build files for a (cross-) toolchain in order to compile Ada 
    for the NXT Lego-Brick and allow to upload and run programs based on the 
-   Ravenscar-profile from a Linux system.
+   Ravenscar-profile from a Linux system (x86_64, recent kernel).
 
 2. Create a general framework for motion controlling and sequencing tasks
    written in Ada and using PNML (or UML Stateflow).
@@ -40,23 +40,35 @@ binutils 2.22
 newlib   1.20
 gcc-core 4.6.1 (stage 1 or base compiler)
 gcc      4.6.1 (patched)
+gdb      7.4
 
 Also a package PKGBUILD for the Ravenscar-Runtime provided by AdaCore (3)
 for Linux is in the "other" folder.
 The Package downloads the required sources from AdaCore and compiles the
 Ravenscar Runtime System using the arm-none-eabi-toolchain.
 
-Toghether with the libnxt (4) project the toolbox for sucessfully creating
+Together with the libnxt (4) project the toolbox for sucessfully creating
 and running Ada programms on the NXT should be complete.
+The tool required some patching to run at all on new linux kernels, so I added
+besides creating a package with patches, I forked an existing git-rep (5) to apply
+the patches.
 
-To be proven...
+Finally samba_run proved to be the tool (with a patch from libnxt applied) to
+load AND run Ada programs on the NXT Mindstorms Brick.
+
+=> The basic_test program compiles and runs on the NXT
+
+# cd demos/basic_tests 
+# make all 
+// Attach the NXT in Firmware mode
+# samba_run tests
 
 
 2. Ada-Control Framework
 A lot of plans so far...
 
 
-3. The Lego-Cleaning-Bot
+3. The Lego-Cleaning-Bot "C3-LegO"
 Inspired by iRobots Roombas...
 
 -------------------------------------------------------------------------------
@@ -67,4 +79,5 @@ References
 2) e.g. http://aur.archlinux.org/packages.php?ID=56522
 3) http://libre.adacore.com/libre/tools/mindstorms/
 4) http://code.google.com/p/libnxt/
+5) https://github.com/rvs/libnxt
 

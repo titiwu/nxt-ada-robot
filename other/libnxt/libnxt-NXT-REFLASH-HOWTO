@@ -1,0 +1,41 @@
+
+To reflash the Lego firmware please follow the following steps:
+
+1. Connect the device using the USB cable. You can verify the connection
+by checking the /var/log/messages file for the message similar to the
+following:
+
+kernel: usb 5-1: new full speed USB device using uhci_hcd and address 13
+kernel: usb 5-1: New USB device found, idVendor=0694, idProduct=0002
+kernel: usb 5-1: New USB device strings: Mfr=0, Product=0, SerialNumber=1
+kernel: usb 5-1: SerialNumber: 00xxxxxxxxxx
+
+where xxxxxxxxxx is a device serial number.
+
+2, Press and hold for at least 5 seconds the reset button hidden in the
+pin hole under the USB port. You can check whether the device entered
+reflash mode (a.k.a. SAMBA mode) by checking the /var/log/messages file for
+the message similar to the following:
+
+kernel: usb 5-1: new full speed USB device using uhci_hcd and address 10
+kernel: usb 5-1: New USB device found, idVendor=03eb, idProduct=6124
+kernel: usb 5-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+
+The device should also produce clicks in the speaker (about once per second).
+
+3. Flash the firmware using the following command:
+
+    su -c 'nxt-fwflash firmware-image'
+
+where the firmware-image is the firmware file.
+
+While flashing the output should be as following:
+Checking firmware... OK.
+NXT device in reset mode located and opened.
+Starting firmware flash procedure now...
+Firmware flash complete.
+New firmware started!
+
+
+Official images can be found at the following URL:
+http://mindstorms.lego.com/en-us/support/files/default.aspx#Firmware

@@ -1,8 +1,8 @@
 # Maintainer: Titiwu
 pkgname=nxt-ada-ravenscar
 pkgver=2011
-pkgrel=2 
-pkgdesc="Ada Ravenscar Runtime System for Lego Mindstroms NXT."
+pkgrel=3 
+pkgdesc="Ada Ravenscar Runtime System for Lego Mindstorms NXT."
 url="http://libre.adacore.com/libre/tools/mindstorms/"
 arch=('x86_64' 'i686')
 license=('GPLv2')
@@ -55,11 +55,11 @@ package() {
   rm COPYING
   rm README
   rm CHANGE_172849
-  mv rts-raven/adalib adalib
-  mv rts-raven/adainclude adainclude
-  rm -r rts-raven
+  #mv rts-raven/adalib adalib
+  #mv rts-raven/adainclude adainclude
+  #rm -r rts-raven
   cd .. 
-  mv mindstorms-nxt-${pkgver}-src "${pkgdir}/usr/lib/gcc/arm-none-eabi/4.6.1/rtsravenscar-sfp"
+  mv mindstorms-nxt-${pkgver}-src "${pkgdir}/usr/lib/gcc/arm-none-eabi/4.6.1/rts-ravenscar-sfp"
 
 }
 

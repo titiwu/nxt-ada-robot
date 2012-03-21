@@ -1,0 +1,14 @@
+
+[Desktop Entry]
+Name=GPS
+GenericName=GNAT Programming Studio
+Comment=GPS, the GNAT Programming Studio for Ada
+Version=1.0
+Type=Application
+Categories=Development;IDE;
+Icon=gps
+Exec=gps
+Terminal=false
+MimeType=text/x-adasrc;
+
+Name[de_DE]=gps

@@ -1,0 +1,48 @@
+# Maintainer: Matias De la Puente <mfpuente.ar@gmail.com>
+# based on 'cross-arm-elf-gdb' by Andreas Messer <andi@surveycorner.de>
+# Contributor:  titiwu
+
+_target="arm-none-eabi"
+pkgname=${_target}-gdb
+pkgver=7.4
+pkgrel=1
+pkgdesc="The GNU Debugger for ARM target"
+arch=('i686' 'x86_64')
+url="http://www.gnu.org/software/gdb/"
+license=('GPL3')
+depends=('ncurses' 'expat' 'python2')
+makedepends=('texinfo')
+optdepends=('openocd: for debugging jtag targets')
+options=('!libtool')
+source=(http://ftp.gnu.org/gnu/gdb/gdb-${pkgver}.tar.bz2)
+md5sums=('95a9a8305fed4d30a30a6dc28ff9d060')
+
+build() {
+  cd ${srcdir}/gdb-${pkgver}
+  
+  ./configure --prefix=/usr \
+	--target=${_target} \
+	--host=$CHOST \
+	--build=$CHOST \
+	--disable-nls	--without-libiconv-prefix \
+        --disable-libada --disable-libssp \
+	--disable-libmudflap --disable-libffi --disable-libstdcxx-pch \
+        --with-system-readline \
+        --enable-languages="c,ada" \
+	--with-local-prefix=/usr/lib/${_target} \
+        --with-sysroot=/usr/$CHOST/${_target}
+
+  make || return 1
+}
+
+package() {
+  cd ${srcdir}/gdb-${pkgver}
+  make DESTDIR=${pkgdir} install || return 1
+
+  # resolve conflicts with binutils / remove unneeded files
+  rm -rf  ${pkgdir}/usr/include
+  rm -f  ${pkgdir}/usr/lib/{libiberty,libbfd,libopcodes}.a
+  rm -rf ${pkgdir}/usr/share/info
+  rm -rf ${pkgdir}/usr/share/gdb
+}
+
