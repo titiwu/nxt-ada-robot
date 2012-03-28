@@ -1,6 +1,6 @@
 # Based on arm-elf-newlib by: Andreas Messer <andi@surveycorner.de>
 # and Andrej Gelenberg <andrej.gelenberg@udo.edu>
-# Contributor:  titiwu
+# Maintainer:  titiwu <matthias.busl@googlemail.com>
 
 _target="arm-none-eabi"
 pkgname=${_target}-newlib

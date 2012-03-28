@@ -1,6 +1,7 @@
 # Adapted from arm-elf-gcc-base: Sergej Pupykin <pupykin.s+arch@gmail.com>
-# Most of the patch is taken from The Ada Microkernel Project (TAMP)
-# Contributor:  titiwu
+# Most of the patch is taken from The Ada Microkernel Project (TAMP), 
+# https://github.com/Lucretia/tamp
+# Maintainer:  titiwu <matthias.busl@googlemail.com>
 
 pkgname=arm-none-eabi-gcc
 pkgver=4.6.1
@@ -9,8 +10,7 @@ pkgdesc="The GNU Compiler Collection - Cross compiler for ARM target"
 arch=(i686 x86_64)
 license=('GPL' 'LGPL')
 url="http://gcc.gnu.org"
-#an installed libc/newlib is needed for libstdc++ compile
-depends=('arm-none-eabi-binutils' 'cloog' 'ppl' 'arm-none-eabi-newlib')
+depends=('arm-none-eabi-binutils' 'cloog' 'ppl' 'arm-none-eabi-newlib' 'gcc-ada')
 # arm-none-eabi-gcc is an superset of arm-none-eabi-gcc-base
 conflicts=('arm-none-eabi-gcc-base')
 provides=("arm-none-eabi-gcc-base=${pkgver}")

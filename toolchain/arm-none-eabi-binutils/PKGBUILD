@@ -1,6 +1,5 @@
-# $Id$
 # Based on arm-elf-binutils by: Sergej Pupykin <pupykin.s+arch@gmail.com>
-# Contributor:  titiwu
+# Maintainer:  titiwu <matthias.busl@googlemail.com>
 
 pkgname=arm-none-eabi-binutils
 pkgver=2.22

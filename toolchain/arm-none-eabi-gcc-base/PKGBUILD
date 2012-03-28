@@ -1,6 +1,5 @@
-# $Id$
 # Based on arm-elf-gcc-base by: Sergej Pupykin <pupykin.s+arch@gmail.com>
-# Contributor:  titiwu
+# Maintainer:  titiwu <matthias.busl@googlemail.com>
 
 pkgname=arm-none-eabi-gcc-base
 pkgver=4.6.1

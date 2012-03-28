@@ -1,6 +1,6 @@
-# Maintainer: Matias De la Puente <mfpuente.ar@gmail.com>
+# Contributor: Matias De la Puente <mfpuente.ar@gmail.com>
 # based on 'cross-arm-elf-gdb' by Andreas Messer <andi@surveycorner.de>
-# Contributor:  titiwu
+# Maintainer:  titiwu <matthias.busl@googlemail.com>
 
 _target="arm-none-eabi"
 pkgname=${_target}-gdb
